@@ -21,7 +21,7 @@ This application is designed for university students to manage and display cours
 1. Clone the repository locally:
 
    ```
-   git clone https://github.com/your-username/your-repository-name.git
+   git clone https://github.com/your-username/your-repository-name.git](https://github.com/QuantumCipherMaster/my-calendar-app.git
    ```
 
 2. Navigate to the backend folder:
