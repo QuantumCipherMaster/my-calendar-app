@@ -1,5 +1,8 @@
 # University Course Calendar Manager
 
+<img width="259" alt="LOGO" src="https://github.com/QuantumCipherMaster/my-calendar-app/assets/128596662/6acf99fc-2c96-4489-9924-64c7312069b8">
+
+
 This application is designed for university students to manage and display course events from `.ics` files, including handling recurring events.
 
 ## Features
