@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Calendar Parser</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
+        h1 { color: #333; }
+        #upload-form { margin-bottom: 20px; }
+        #calendar-events { margin-top: 20px; }
+        .event { background: #f4f4f4; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Course Calendar Parser</h1>
+    <form id="upload-form">
+        <input type="file" id="ics-file" accept=".ics" required>
+        <button type="submit">Upload and Parse</button>
+    </form>
+    <div id="status"></div>
+    <div id="calendar-events"></div>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const file = document.getElementById('ics-file').files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/parse', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const eventsDiv = document.getElementById('calendar-events');
+                eventsDiv.innerHTML = '';
+                data.forEach(event => {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.className = 'event';
+                    eventDiv.innerHTML = `
+                        <h3>${event.summary}</h3>
+                        <p>Start: ${event.start}</p>
+                        <p>End: ${event.end}</p>
+                        <p>Location: ${event.location || 'N/A'}</p>
+                    `;
+                    eventsDiv.appendChild(eventDiv);
+                });
+            })
+            .catch(error => {
+                document.getElementById('status').textContent = 'Error: ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>
